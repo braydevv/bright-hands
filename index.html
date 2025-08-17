@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bright hands</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        :root {
+            --gradient-bg: linear-gradient(135deg, #f5f0e6 0%, #f0e6d2 100%);
+            --text-color: #333333;
+            --accent-gradient: linear-gradient(135deg, #a0c4ff 0%, #7ba4e8 100%);
+            --button-gradient: linear-gradient(135deg, #7ba4e8 0%, #5a83c7 100%);
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-slow: all 0.5s ease;
+            --transition-medium: all 0.3s ease;
+            --transition-fast: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            background: var(--gradient-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            text-transform: lowercase;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        /* Accessibility Improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        button, a {
+            transition: var(--transition-medium);
+        }
+
+        button:focus, a:focus, input:focus, textarea:focus, select:focus {
+            outline: 3px solid #7ba4e8;
+            outline-offset: 2px;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--gradient-bg);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+
+        .logo {
+            font-size: 24px;
+            color: var(--text-color);
+            text-decoration: none;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: var(--transition-medium);
+        }
+
+        .logo:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: var(--transition-medium);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.3s;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-bg span {
+            position: absolute;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) scale(1);
+            }
+            25% {
+                transform: translateY(-30px) translateX(15px) scale(1.05);
+            }
+            50% {
+                transform: translateY(0) translateX(30px) scale(1);
+            }
+            75% {
+                transform: translateY(30px) translateX(15px) scale(0.95);
+            }
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--button-gradient);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-medium);
+            box-shadow: 0 4px 15px rgba(123, 164, 232, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.9s;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, #5a83c7 0%, #3b64a8 100%);
+            transition: var(--transition-medium);
+            z-index: -1;
+            border-radius: 30px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(123, 164, 232, 0.4);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: translateY(-3px) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(2deg); }
+            75% { transform: translateY(-3px) rotate(-2deg); }
+        }
+
+        .btn:hover {
+            animation: wiggle 0.5s ease;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            transition: var(--transition-medium);
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-medium);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-content {
+            flex-grow: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: var(--transition-medium);
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2);
+        }
+
+        /* Coming Soon Section */
+        .coming-soon-card {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .coming-soon-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .coming-soon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--accent-gradient);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: var(--transition-medium);
+        }
+
+        .coming-soon-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .coming-soon-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 10px;
+            transition: var(--transition-medium);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        .coming-soon-card:hover img {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .coming-soon-card h3 {
+            margin-bottom: 5px;
+        }
+
+        /* Fundraiser Bar */
+        .fundraiser {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-medium);
+        }
+
+        .fundraiser.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fundraiser::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 0;
+        }
+
+        .fundraiser-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-container {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
+            border-radius: 10px;
+            height: 30px;
+            margin: 25px 0;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-gradient);
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            box-shadow: 0 0 10px rgba(123, 164, 232, 0.5);
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .progress-amount {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Me Section */
+        .about-me {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-medium);
+        }
+
+        .about-me.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .about-me::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 0;
+        }
+
+        .about-me-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                       var(--accent-gradient) border-box;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            transition: var(--transition-medium);
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-me:hover .about-me-image {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .about-me-content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-me-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+            line-height: 1.8;
+        }
+
+        .about-me-content p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 20px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-medium);
+        }
+
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+            z-index: 0;
+        }
+
+        .form-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            transition: var(--transition-medium);
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition-medium);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #7ba4e8;
+            box-shadow: 0 0 0 3px rgba(123, 164, 232, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #333333 0%, #222222 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-gradient);
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin: 0 15px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition-medium);
+        }
+
+        .footer-links a:hover {
+            color: #a0c4ff;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--button-gradient);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition-medium);
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-me {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .about-me-image {
+                margin-bottom: 20px;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--gradient-bg);
+                padding: 20px;
+                box-shadow: 0 5px 10px var(--shadow-color);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+
+            .coming-soon-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .coming-soon-card img {
+                margin: 0 0 20px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .card, .coming-soon-card, .fundraiser, .about-me, .contact-form {
+                padding: 25px;
+            }
+        }
+
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .high-contrast {
+            --text-color: #000000;
+            --accent-gradient: linear-gradient(135deg, #0066cc 0%, #004080 100%);
+            --button-gradient: linear-gradient(135deg, #0066cc 0%, #004080 100%);
+            --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        }
+
+        .large-text {
+            font-size: 120%;
+        }
+
+        .accessibility-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .accessibility-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--button-gradient);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            transition: var(--transition-medium);
+        }
+
+        .accessibility-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Accessibility Controls -->
+    <div class="accessibility-controls">
+        <button class="accessibility-btn" id="contrast-toggle" aria-label="Toggle high contrast mode">
+            <span aria-hidden="true">Aa</span>
+        </button>
+        <button class="accessibility-btn" id="text-size-toggle" aria-label="Toggle large text">
+            <span aria-hidden="true">A+</span>
+        </button>
+    </div>
+
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" aria-label="bright hands home">bright hands</a>
+            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                ☰
+            </button>
+            <ul class="nav-menu" role="navigation">
+                <li><a href="#services" aria-label="Go to services section">services</a></li>
+                <li><a href="#coming-soon" aria-label="Go to coming soon section">coming soon</a></li>
+                <li><a href="#fundraiser" aria-label="Go to fundraiser section">fundraiser</a></li>
+                <li><a href="#about" aria-label="Go to about section">about</a></li>
+                <li><a href="#contact" aria-label="Go to contact section">contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content">
+            <h1>bright hands</h1>
+            <p>helping hands for your yard, pets, and more</p>
+            <a href="#contact" class="btn" aria-label="Book a service now">book a service</a>
+        </div>
+    </section>
+
+    <section id="services" class="container">
+        <h2 class="section-title">our services</h2>
+        <div class="services-grid">
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🌲</div>
+                    <h3>yard work</h3>
+                    <p>cleanup of pinecones, sticks, and general yard maintenance to keep your outdoor space tidy.</p>
+                </div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🐕</div>
+                    <h3>dog sitting / walking</h3>
+                    <p>reliable care for your furry friends when you're away or too busy for a walk.</p>
+                </div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🧹</div>
+                    <h3>garbage can cleaning</h3>
+                    <p>thorough cleaning of your garbage cans to eliminate odors and maintain hygiene.</p>
+                </div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🌱</div>
+                    <h3>plant watering</h3>
+                    <p>regular watering service to keep your indoor and outdoor plants healthy while you're away.</p>
+                </div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🍂</div>
+                    <h3>leaf raking</h3>
+                    <p>seasonal leaf removal to keep your yard clean and prevent lawn damage.</p>
+                </div>
+            </div>
+            <div class="card" data-tilt>
+                <div class="card-content">
+                    <div class="card-icon" aria-hidden="true">🗑️</div>
+                    <h3>trash take out</h3>
+                    <p>regular trash removal service to help maintain cleanliness around your property.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="coming-soon" class="container">
+        <h2 class="section-title">coming soon</h2>
+        <div class="coming-soon-card" data-tilt>
+            <img src="https://images.unsplash.com/photo-1589454402508-ab7d8bfd7763?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lawn Mowing" loading="lazy">
+            <div>
+                <h3>lawn mowing</h3>
+                <p>professional lawn mowing service coming soon!</p>
+            </div>
+        </div>
+        <div class="coming-soon-card" data-tilt>
+            <img src="https://images.unsplash.com/photo-1576189834715-c5f6fae46f55?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Christmas Lights" loading="lazy">
+            <div>
+                <h3>christmas lights setup/takedown</h3>
+                <p>holiday decoration services to brighten your season.</p>
+            </div>
+        </div>
+        <div class="coming-soon-card" data-tilt>
+            <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Errand Running" loading="lazy">
+            <div>
+                <h3>errand running</h3>
+                <p>let us handle your errands while you focus on what matters most.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fundraiser" class="container">
+        <h2 class="section-title">fundraiser progress</h2>
+        <div class="fundraiser">
+            <div class="fundraiser-content">
+                <p>i'm raising money to furnish my new room after our recent move. every service helps me get closer to my goal!</p>
+                <div class="progress-container" aria-label="Fundraiser progress: $150 raised of $400 goal">
+                    <div class="progress-bar" id="fundraiser-progress"></div>
+                </div>
+                <div class="progress-text">
+                    <div>
+                        <span class="progress-amount">$<span id="current-amount">0</span></span>
+                        <span>raised so far</span>
+                    </div>
+                    <div>
+                        <span class="progress-amount">$400</span>
+                        <span>goal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">about me</h2>
+        <div class="about-me">
+            <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Profile Photo" class="about-me-image" loading="lazy">
+            <div class="about-me-content">
+                <p id="about-text">hey! i'm brayden (or bj), i'm a 14-year-old freshman trying to start a neighborhood business to make some money for my room (we just moved in). thanks for checking out my site!</p>
+                <p>i'm reliable, hardworking, and eager to help with tasks around your home. my goal is to provide quality services that make your life easier while saving up for things i need.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h2 class="section-title">contact me</h2>
+        <div class="contact-form">
+            <div class="form-content">
+                <form id="service-form">
+                    <div class="form-group">
+                        <label for="name">name</label>
+                        <input type="text" id="name" name="name" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">email/phone</label>
+                        <input type="text" id="contact" name="contact" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">service needed</label>
+                        <select id="service" name="service" required aria-required="true">
+                            <option value="">select a service</option>
+                            <option value="Yard Work">yard work</option>
+                            <option value="Dog Sitting / Walking">dog sitting / walking</option>
+                            <option value="Garbage Can Cleaning">garbage can cleaning</option>
+                            <option value="Plant Watering">plant watering</option>
+                            <option value="Leaf Raking">leaf raking</option>
+                            <option value="Trash Take Out">trash take out</option>
+                            <option value="Other">other (please specify)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">message</label>
+                        <textarea id="message" name="message" required aria-required="true"></textarea>
+                    </div>
+                    <button type="submit" class="btn" aria-label="Submit service request">submit request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 bright hands. all rights reserved.</p>
+                <ul class="footer-links">
+                    <li><a href="#services">services</a></li>
+                    <li><a href="#about">about</a></li>
+                    <li><a href="#contact">contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create animated background for hero section
+            const heroBg = document.getElementById('hero-bg');
+            
+            // Create floating elements
+            for (let i = 0; i < 15; i++) {
+                const span = document.createElement('span');
+                const size = Math.random() * 100 + 50;
+                span.style.width = `${size}px`;
+                span.style.height = `${size}px`;
+                span.style.left = `${Math.random() * 100}%`;
+                span.style.top = `${Math.random() * 100}%`;
+                span.style.animationDelay = `${Math.random() * 5}s`;
+                span.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                heroBg.appendChild(span);
+            }
+            
+            // Scroll animations with staggered effect
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Animate cards with staggered delay
+                        if (entry.target.id === 'services') {
+                            const cards = entry.target.querySelectorAll('.card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, 100 * index);
+                            });
+                        }
+                        
+                        // Animate coming soon cards with staggered delay
+                        if (entry.target.id === 'coming-soon') {
+                            const cards = entry.target.querySelectorAll('.coming-soon-card');
+                            cards.forEach((card, index) => {
+                                setTimeout(() => {
+                                    card.classList.add('visible');
+                                }, 200 * index);
+                            });
+                        }
+                        
+                        // Animate fundraiser
+                        if (entry.target.id === 'fundraiser') {
+                            const fundraiser = entry.target.querySelector('.fundraiser');
+                            setTimeout(() => {
+                                fundraiser.classList.add('visible');
+                            }, 100);
+                        }
+                        
+                        // Animate about me
+                        if (entry.target.id === 'about') {
+                            const aboutMe = entry.target.querySelector('.about-me');
+                            setTimeout(() => {
+                                aboutMe.classList.add('visible');
+                                
+                                const paragraphs = aboutMe.querySelectorAll('p');
+                                paragraphs.forEach((p, index) => {
+                                    setTimeout(() => {
+                                        p.classList.add('visible');
+                                    }, 300 * index);
+                                });
+                            }, 100);
+                        }
+                        
+                        // Animate contact form
+                        if (entry.target.id === 'contact') {
+                            const contactForm = entry.target.querySelector('.contact-form');
+                            setTimeout(() => {
+                                contactForm.classList.add('visible');
+                            }, 100);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Fundraiser progress bar animation
+            const progressBar = document.getElementById('fundraiser-progress');
+            const currentAmount = document.getElementById('current-amount');
+            const raisedAmount = 150; // Current amount raised
+            const goalAmount = 400; // Goal amount
+            
+            const progressPercentage = (raisedAmount / goalAmount) * 100;
+            
+            const animateValue = (obj, start, end, duration) => {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    obj.innerHTML = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            };
+            
+            const fundraiserObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        progressBar.style.width = `${progressPercentage}%`;
+                        animateValue(currentAmount, 0, raisedAmount, 1500);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fundraiserObserver.observe(document.getElementById('fundraiser'));
+            
+            // 3D Card Tilt Effect
+            const cards = document.querySelectorAll('[data-tilt]');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', handleCardHover);
+                card.addEventListener('mouseleave', resetCardPosition);
+                card.addEventListener('touchmove', handleTouchMove);
+                card.addEventListener('touchend', resetCardPosition);
+            });
+            
+            function handleCardHover(e) {
+                const card = this;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+            }
+            
+            function handleTouchMove(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    const card = this;
+                    const rect = card.getBoundingClientRect();
+                    const x = touch.clientX - rect.left;
+                    const y = touch.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                    card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+                }
+            }
+            
+            function resetCardPosition() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
+            }
+            
+            // Mobile Navigation
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+                navToggle.setAttribute('aria-expanded', !expanded);
+            });
+            
+            // Close menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+            
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Accessibility Controls
+            const contrastToggle = document.getElementById('contrast-toggle');
+            const textSizeToggle = document.getElementById('text-size-toggle');
+            
+            contrastToggle.addEventListener('click', () => {
+                document.body.classList.toggle('high-contrast');
+                const isHighContrast = document.body.classList.contains('high-contrast');
+                localStorage.setItem('high-contrast', isHighContrast);
+                contrastToggle.setAttribute('aria-pressed', isHighContrast);
+            });
+            
+            textSizeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('large-text');
+                const isLargeText = document.body.classList.contains('large-text');
+                localStorage.setItem('large-text', isLargeText);
+                textSizeToggle.setAttribute('aria-pressed', isLargeText);
+            });
+            
+            // Load saved accessibility preferences
+            if (localStorage.getItem('high-contrast') === 'true') {
+                document.body.classList.add('high-contrast');
+                contrastToggle.setAttribute('aria-pressed', 'true');
+            } else {
+                contrastToggle.setAttribute('aria-pressed', 'false');
+            }
+            
+            if (localStorage.getItem('large-text') === 'true') {
+                document.body.classList.add('large-text');
+                textSizeToggle.setAttribute('aria-pressed', 'true');
+            } else {
+                textSizeToggle.setAttribute('aria-pressed', 'false');
+            }
+            
+            // Form submission
+            const form = document.getElementById('service-form');
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    name: document.getElementById('name').value,
+                    contact: document.getElementById('contact').value,
+                    service: document.getElementById('service').value,
+                    message: document.getElementById('message').value,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer
+                };
+                
+                try {
+                    // Get IP information
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    formData.ip = ipData.ip;
+                    
+                    // Send to Discord webhook
+                    const webhookUrl = 'https://discord.com/api/webhooks/1406758914346844321/wpayyuHq_4rzWVBZUcss8gHbvXER_oI4I3HsHRERtw0ifLYrZwVrlgonAhcRR3ZQyxcv';
+                    
+                    const webhookData = {
+                        content: "new service request!",
+                        embeds: [{
+                            title: "service request details",
+                            color: 5814783, // Light blue color
+                            fields: [
+                                {
+                                    name: "name",
+                                    value: formData.name,
+                                    inline: true
+                                },
+                                {
+                                    name: "contact",
+                                    value: formData.contact,
+                                    inline: true
+                                },
+                                {
+                                    name: "service",
+                                    value: formData.service,
+                                    inline: true
+                                },
+                                {
+                                    name: "message",
+                                    value: formData.message
+                                },
+                                {
+                                    name: "ip address",
+                                    value: formData.ip,
+                                    inline: true
+                                },
+                                {
+                                    name: "user agent",
+                                    value: formData.userAgent
+                                },
+                                {
+                                    name: "referrer",
+                                    value: formData.referrer || "direct"
+                                }
+                            ],
+                            timestamp: formData.timestamp
+                        }]
+                    };
+                    
+                    const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(webhookData)
+                    });
+                    
+                    if (response.ok) {
+                        // Show success message
+                        const formContent = document.querySelector('.form-content');
+                        formContent.innerHTML = `
+                            <div style="text-align: center; padding: 40px 0;">
+                                <div style="font-size: 3rem; margin-bottom: 20px;">✅</div>
+                                <h3>thank you!</h3>
+                                <p>your service request has been submitted. i will get back to you soon!</p>
+                                <button class="btn" style="margin-top: 20px;" onclick="location.reload()">send another request</button>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('failed to submit form');
+                    }
+                } catch (error) {
+                    console.error('error:', error);
+                    alert('there was an error submitting your request. please try again or contact me directly at urfavbraybray13@gmail.com');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
