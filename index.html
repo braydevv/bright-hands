@@ -1,37 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bright Hands</title>
+    <title>Bright Hands - Clean & Professional Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Base Styles */
         :root {
-            --gradient-bg: linear-gradient(135deg, #f5f0e6 0%, #f0e6d2 100%);
-            --text-color: #333333;
-            --accent-gradient: linear-gradient(135deg, #a0c4ff 0%, #7ba4e8 100%);
-            --button-gradient: linear-gradient(135deg, #7ba4e8 0%, #5a83c7 100%);
-            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --transition-slow: all 0.5s ease;
-            --transition-medium: all 0.3s ease;
-            --transition-fast: all 0.2s ease;
-            --price-tag-bg: #e6f2ff;
-            --price-tag-color: #3b64a8;
-        }
-
-        [data-theme="dark"] {
-            --gradient-bg: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            --text-color: #f0f0f0;
-            --accent-gradient: linear-gradient(135deg, #7ba4e8 0%, #5a83c7 100%);
-            --button-gradient: linear-gradient(135deg, #7ba4e8 0%, #5a83c7 100%);
-            --card-gradient: linear-gradient(135deg, #2a2a2a 0%, #333333 100%);
-            --shadow-color: rgba(0, 0, 0, 0.3);
-            --price-tag-bg: #3b64a8;
-            --price-tag-color: #e6f2ff;
+            --primary-green: #4CAF50;
+            --light-green: #8BC34A;
+            --mint-green: #A5D6A7;
+            --soft-green: #E8F5E8;
+            --sky-blue: #87CEEB;
+            --light-blue: #ADD8E6;
+            --white: #FFFFFF;
+            --off-white: #F8FFF8;
+            --text-dark: #2E7D32;
+            --text-light: #66BB6A;
+            --shadow-light: rgba(76, 175, 80, 0.1);
+            --shadow-medium: rgba(76, 175, 80, 0.2);
         }
 
         * {
@@ -40,19 +31,22 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            background: var(--gradient-bg);
-            color: var(--text-color);
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--soft-green) 0%, var(--light-blue) 50%, var(--white) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
             font-size: 16px;
-            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -61,761 +55,236 @@
             padding: 0 20px;
         }
 
-        section {
-            padding: 80px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h1, h2, h3 {
-            margin-bottom: 20px;
-        }
-
-        /* Accessibility Improvements */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        button, a {
-            transition: var(--transition-medium);
-        }
-
-        button:focus, a:focus, input:focus, textarea:focus, select:focus {
-            outline: 3px solid #7ba4e8;
-            outline-offset: 2px;
-        }
-
-        /* Header Styles */
-        header {
-            background: var(--gradient-bg);
-            padding: 20px 0;
-            position: sticky;
+        /* Clean Particle System */
+        .particle-container {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px var(--shadow-color);
-            transition: background 0.3s ease;
-        }
-
-        .logo {
-            font-size: 24px;
-            color: var(--text-color);
-            text-decoration: none;
-            position: relative;
-            display: inline-block;
-        }
-
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gradient);
-            transition: var(--transition-medium);
-        }
-
-        .logo:hover::after {
             width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-color);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-menu li {
-            margin-left: 20px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--text-color);
-            position: relative;
-        }
-
-        .nav-menu a::after {
-            content: '';
+        .particle {
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gradient);
-            transition: var(--transition-medium);
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            background: none;
-            border: none;
-            width: 40px;
-            height: 40px;
+            background: var(--light-blue);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            margin-left: 15px;
-            background: var(--button-gradient);
-            color: white;
-            box-shadow: 0 2px 5px var(--shadow-color);
+            opacity: 0.4;
+            animation: floatSideways 20s infinite linear;
         }
 
-        .theme-toggle:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px var(--shadow-color);
+        @keyframes floatSideways {
+            0% {
+                transform: translateX(-100px) translateY(0px) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+                transform: translateX(-80px) translateY(-20px) scale(1);
+            }
+            90% {
+                opacity: 0.4;
+                transform: translateX(calc(100vw + 80px)) translateY(-40px) scale(1);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px)) translateY(-60px) scale(0);
+                opacity: 0;
+            }
         }
 
-        /* Hero Section */
+        /* Clean Hero Section */
         .hero {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            padding: 100px 0;
-        }
-
-        .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
             margin-bottom: 20px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s forwards 0.3s;
+            color: var(--primary-green);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: bounce 2s ease-in-out infinite;
         }
 
-        .hero p {
-            font-size: 1.5rem;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
             margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s forwards 0.6s;
+            color: var(--text-dark);
+            opacity: 0.9;
         }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-
-        .hero-bg span {
-            position: absolute;
-            background: var(--accent-gradient);
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0) scale(1);
-            }
-            25% {
-                transform: translateY(-30px) translateX(15px) scale(1.05);
-            }
-            50% {
-                transform: translateY(0) translateX(30px) scale(1);
-            }
-            75% {
-                transform: translateY(30px) translateX(15px) scale(0.95);
-            }
-        }
-
-        /* Button Styles */
-        .btn {
+        .btn-primary {
             display: inline-block;
-            padding: 14px 32px;
-            background: var(--button-gradient);
-            color: white;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
+            color: var(--white);
             border: none;
-            border-radius: 30px;
-            font-size: 1rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: var(--transition-medium);
-            box-shadow: 0 4px 15px rgba(123, 164, 232, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        /* Clean Services Section */
+        .services {
+            padding: 100px 0;
             position: relative;
-            overflow: hidden;
-            z-index: 1;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s forwards 0.9s;
+            z-index: 2;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(135deg, #5a83c7 0%, #3b64a8 100%);
-            transition: var(--transition-medium);
-            z-index: -1;
-            border-radius: 30px;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(123, 164, 232, 0.4);
-        }
-
-        .btn:hover::before {
-            width: 100%;
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        @keyframes wiggle {
-            0%, 100% { transform: translateY(-3px) rotate(0deg); }
-            25% { transform: translateY(-3px) rotate(2deg); }
-            75% { transform: translateY(-3px) rotate(-2deg); }
-        }
-
-        .btn:hover {
-            animation: wiggle 0.5s ease;
-        }
-
-        /* Section Titles */
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            color: var(--primary-green);
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--accent-gradient);
-            border-radius: 3px;
-        }
-
-        /* Services Section */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
         }
 
-        .card {
-            background: var(--card-gradient);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            transition: var(--transition-medium);
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .service-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            border: 3px solid transparent;
             position: relative;
             overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
         }
 
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .service-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            border-color: var(--sky-blue);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--accent-gradient);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: var(--transition-medium);
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 25px;
+            color: var(--primary-green);
+            transition: all 0.4s ease;
         }
 
-        .card:hover::before {
-            transform: scaleX(1);
+        .service-card:hover .service-icon {
+            transform: scale(1.3);
+            color: var(--sky-blue);
         }
 
-        .card-content {
-            flex-grow: 1;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .card p {
-            color: var(--text-color);
-            opacity: 0.8;
+        .service-card h3 {
+            font-size: 1.8rem;
             margin-bottom: 20px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            margin-bottom: 25px;
             line-height: 1.7;
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            transition: var(--transition-medium);
-        }
-
-        .card:hover .card-icon {
-            transform: scale(1.2);
+            font-size: 1.1rem;
         }
 
         .price-tag {
             display: inline-block;
-            background: var(--price-tag-bg);
-            color: var(--price-tag-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 1.1rem;
-            margin-top: 10px;
-            transition: var(--transition-medium);
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
-        .card:hover .price-tag {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Coming Soon Section */
-        .coming-soon-card {
-            background: var(--card-gradient);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            transition: var(--transition-medium);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .coming-soon-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .coming-soon-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--accent-gradient);
-            transform: scaleY(0);
-            transform-origin: top;
-            transition: var(--transition-medium);
-        }
-
-        .coming-soon-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .coming-soon-card:hover {
-            transform: scale(1.02);
-        }
-
-        .coming-soon-card img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 20px;
-            border-radius: 10px;
-            transition: var(--transition-medium);
-            box-shadow: 0 5px 15px var(--shadow-color);
-        }
-
-        .coming-soon-card:hover img {
+        .service-card:hover .price-tag {
             transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
 
-        .coming-soon-card h3 {
-            margin-bottom: 5px;
-        }
-
-        .coming-soon-card p {
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        .coming-soon-icon {
-            font-size: 2.5rem;
-            margin-right: 20px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            transition: var(--transition-medium);
-        }
-
-        .coming-soon-card:hover .coming-soon-icon {
-            transform: scale(1.2);
-        }
-
-        .coming-soon-content {
-            flex: 1;
-        }
-
-        .estimated-price {
-            display: inline-block;
-            background: var(--price-tag-bg);
-            color: var(--price-tag-color);
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            transition: var(--transition-medium);
-        }
-
-        .coming-soon-card:hover .estimated-price {
-            transform: scale(1.05);
-        }
-
-        /* Fundraiser Bar */
-        .fundraiser {
-            background: var(--card-gradient);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            margin-bottom: 30px;
+        /* Enhanced Booking Section */
+        .booking-section {
+            padding: 100px 0;
             position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition-medium);
+            z-index: 2;
         }
 
-        .fundraiser.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fundraiser::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-            z-index: 0;
-        }
-
-        .fundraiser-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .fundraiser p {
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        .progress-container {
-            background: linear-gradient(135deg, #e0e0e0 0%, #f0f0f0 100%);
-            border-radius: 10px;
-            height: 30px;
-            margin: 25px 0;
-            overflow: hidden;
-            position: relative;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        [data-theme="dark"] .progress-container {
-            background: linear-gradient(135deg, #444 0%, #555 100%);
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--accent-gradient);
-            width: 0%;
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-            position: relative;
-            box-shadow: 0 0 10px rgba(123, 164, 232, 0.5);
-        }
-
-        .progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(255, 255, 255, 0) 0%, 
-                rgba(255, 255, 255, 0.3) 50%, 
-                rgba(255, 255, 255, 0) 100%);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .progress-text {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            margin-top: 10px;
-            color: var(--text-color);
-        }
-
-        .progress-amount {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 5px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* About Me Section */
-        .about-me {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            background: var(--card-gradient);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition-medium);
-        }
-
-        .about-me.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .about-me::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-            z-index: 0;
-        }
-
-        .about-me-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                       var(--accent-gradient) border-box;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            transition: var(--transition-medium);
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-me:hover .about-me-image {
-            transform: scale(1.05) rotate(5deg);
-        }
-
-        .about-me-content {
-            flex: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-me-content p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
-            line-height: 1.8;
-            color: var(--text-color);
-        }
-
-        .about-me-content p.visible {
-            opacity: 0.9;
-            transform: translateY(0);
-        }
-
-        /* Contact Form */
-        .contact-form {
-            background: var(--card-gradient);
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 10px 20px var(--shadow-color);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: var(--transition-medium);
-            margin-top: 40px;
-        }
-
-        .contact-form.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .contact-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(160, 196, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-            z-index: 0;
-        }
-
-        .form-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-intro {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .form-intro p {
-            color: var(--text-color);
-            opacity: 0.8;
-            max-width: 600px;
+        .booking-form {
+            max-width: 700px;
             margin: 0 auto;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
+            background: var(--white);
+            border-radius: 30px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
 
         .form-group {
-            margin-bottom: 25px;
-            position: relative;
-            flex: 1;
+            margin-bottom: 35px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            transition: var(--transition-medium);
-            font-size: 1rem;
-            color: var(--text-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.2rem;
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
+            padding: 18px;
+            border: 3px solid var(--mint-green);
+            border-radius: 15px;
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: var(--transition-medium);
-            background: rgba(255, 255, 255, 0.8);
-            color: #333;
-        }
-
-        [data-theme="dark"] .form-group input,
-        [data-theme="dark"] .form-group textarea,
-        [data-theme="dark"] .form-group select {
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.9);
-            border-color: #555;
         }
 
         .form-group input:focus,
         .form-group textarea:focus,
         .form-group select:focus {
-            border-color: #7ba4e8;
-            box-shadow: 0 0 0 3px rgba(123, 164, 232, 0.2);
+            outline: none;
+            border-color: var(--sky-blue);
+            box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.2);
+            transform: scale(1.02);
         }
 
         .form-group textarea {
@@ -823,295 +292,97 @@
             resize: vertical;
         }
 
-        .form-submit {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .contact-info {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(123, 164, 232, 0.3);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 20px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            padding: 15px 25px;
-            background: rgba(123, 164, 232, 0.1);
-            border-radius: 10px;
-            transition: var(--transition-medium);
-        }
-
-        .contact-method:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-
-        .contact-info-icon {
-            margin-right: 15px;
-            font-size: 1.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-details h4 {
-            margin-bottom: 5px;
-            color: var(--text-color);
-        }
-
-        .contact-details p {
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #333333 0%, #222222 100%);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-            margin-top: 80px;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .submit-btn {
             width: 100%;
-            height: 5px;
-            background: var(--accent-gradient);
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            margin: 20px 0;
-            padding: 0;
+        .submit-btn:active {
+            transform: translateY(-1px) scale(1.02);
         }
 
-        .footer-links li {
-            margin: 0 15px;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: var(--transition-medium);
-        }
-
-        .footer-links a:hover {
-            color: #a0c4ff;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--button-gradient);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: var(--transition-medium);
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .back-to-top:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .form-row {
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .contact-method {
-                width: 100%;
-                max-width: 400px;
-            }
-        }
-
+        /* Enhanced Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.8rem;
             }
             
-            .hero p {
-                font-size: 1.2rem;
+            .hero-content p {
+                font-size: 1.4rem;
             }
             
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
             
-            .about-me {
-                flex-direction: column;
-                text-align: center;
+            .booking-form {
+                padding: 40px 30px;
+                margin: 0 20px;
             }
             
-            .about-me-image {
-                margin-bottom: 20px;
+            .section-title {
+                font-size: 2.2rem;
             }
-
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--gradient-bg);
-                padding: 20px;
-                box-shadow: 0 5px 10px var(--shadow-color);
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .nav-menu li {
-                margin: 10px 0;
-            }
-
-            .nav-toggle {
-                display: block;
-            }
-
-            .coming-soon-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .coming-soon-card img,
-            .coming-soon-icon {
-                margin: 0 0 20px 0;
+            
+            .service-card {
+                padding: 35px 25px;
             }
         }
 
         @media (max-width: 480px) {
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.2rem;
             }
             
-            .hero p {
-                font-size: 1rem;
+            .btn-primary {
+                padding: 15px 35px;
+                font-size: 1.2rem;
             }
             
-            .btn {
-                padding: 12px 25px;
-                font-size: 0.9rem;
-            }
-            
-            section {
-                padding: 60px 0;
-            }
-            
-            .card, .coming-soon-card, .fundraiser, .about-me, .contact-form {
-                padding: 25px;
+            .booking-form {
+                padding: 30px 20px;
             }
         }
 
-        /* Accessibility Improvements */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, var(--mint-green), var(--sky-blue));
+            border-radius: 25px;
+            color: var(--white);
         }
 
-        .high-contrast {
-            --text-color: #000000;
-            --accent-gradient: linear-gradient(135deg, #0066cc 0%, #004080 100%);
-            --button-gradient: linear-gradient(135deg, #0066cc 0%, #004080 100%);
-            --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+        .success-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            animation: bounce 1s ease;
         }
 
-        .large-text {
-            font-size: 120%;
-        }
-
-        .accessibility-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
-
-        .accessibility-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: var(--button-gradient);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            font-size: 18px;
-            transition: var(--transition-medium);
-        }
-
-        .accessibility-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Loading animation */
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
+            width: 25px;
+            height: 25px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: white;
+            border-top-color: var(--white);
             animation: spin 1s ease-in-out infinite;
             margin-left: 10px;
         }
@@ -1120,728 +391,264 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Success message */
-        .success-message {
+        /* Enhanced Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
+            color: var(--white);
             text-align: center;
-            padding: 40px 0;
+            padding: 60px 0;
+            margin-top: 100px;
+            position: relative;
+            z-index: 2;
         }
 
-        .success-icon {
-            font-size: 4rem;
+        .footer h3 {
+            font-size: 2rem;
             margin-bottom: 20px;
-            color: #4CAF50;
-            animation: bounce 1s ease;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 
-            40% {transform: translateY(-30px);} 
-            60% {transform: translateY(-15px);} 
         }
     </style>
-<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
 <body>
-    <!-- Accessibility Controls -->
-    <div class="accessibility-controls">
-        <button class="accessibility-btn" id="contrast-toggle" aria-label="Toggle high contrast mode">
-            <span aria-hidden="true">Aa</span>
-        </button>
-        <button class="accessibility-btn" id="text-size-toggle" aria-label="Toggle large text">
-            <span aria-hidden="true">A+</span>
-        </button>
-        <button class="accessibility-btn theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-            <span aria-hidden="true">🌓</span>
-        </button>
-    </div>
+    <!-- Clean Particle Container -->
+    <div class="particle-container" id="particle-container"></div>
 
-    <header>
-        <div class="container header-container">
-            <a href="#" class="logo" aria-label="Bright Hands home">Bright Hands</a>
-            <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-                ☰
-            </button>
-            <ul class="nav-menu" role="navigation">
-                <li><a href="#services" aria-label="Go to services section">Services</a></li>
-                <li><a href="#coming-soon" aria-label="Go to coming soon section">Coming Soon</a></li>
-                <li><a href="#fundraiser" aria-label="Go to fundraiser section">Fundraiser</a></li>
-                <li><a href="#about" aria-label="Go to about section">About</a></li>
-                <li><a href="#contact" aria-label="Go to contact section">Contact</a></li>
-            </ul>
-        </div>
-    </header>
-
+    <!-- Clean Hero Section -->
     <section class="hero">
-        <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
         <div class="hero-content">
             <h1>Bright Hands</h1>
-            <p>Helping Hands for Your Yard, Pets, and More</p>
-            <a href="#contact" class="btn" aria-label="Book a service now">Book a Service</a>
+            <p>Professional yard work, pet care, and home services</p>
+            <a href="#services" class="btn-primary">View Our Services</a>
         </div>
     </section>
 
-    <section id="services" class="container">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-grid">
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🌲</div>
+    <!-- Clean Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Professional Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-tree service-icon"></i>
                     <h3>Yard Work</h3>
-                    <p>Cleanup of pinecones, sticks, and general yard maintenance to keep your outdoor space tidy.</p>
-                    <div class="price-tag">$15 per hour</div>
+                    <p>Complete yard cleanup and maintenance to keep your outdoor space pristine.</p>
+                    <div class="price-tag">$15/hour</div>
                 </div>
-            </div>
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🐕</div>
-                    <h3>Dog Sitting / Walking</h3>
-                    <p>Reliable care for your furry friends when you're away or too busy for a walk.</p>
-                    <div class="price-tag">$20 per visit</div>
+
+                <div class="service-card">
+                    <i class="fas fa-dog service-icon"></i>
+                    <h3>Dog Sitting & Walking</h3>
+                    <p>Reliable pet care services when you need them most.</p>
+                    <div class="price-tag">$20/visit</div>
                 </div>
-            </div>
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🧹</div>
+
+                <div class="service-card">
+                    <i class="fas fa-trash service-icon"></i>
                     <h3>Garbage Can Cleaning</h3>
-                    <p>Thorough cleaning of your garbage cans to eliminate odors and maintain hygiene.</p>
-                    <div class="price-tag">$15 per can</div>
+                    <p>Professional cleaning to eliminate odors and maintain hygiene.</p>
+                    <div class="price-tag">$15/can</div>
                 </div>
-            </div>
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🌱</div>
+
+                <div class="service-card">
+                    <i class="fas fa-seedling service-icon"></i>
                     <h3>Plant Watering</h3>
-                    <p>Regular watering service to keep your indoor and outdoor plants healthy while you're away.</p>
-                    <div class="price-tag">$5 per visit</div>
+                    <p>Keep your plants healthy and thriving with regular care.</p>
+                    <div class="price-tag">$7/visit</div>
                 </div>
-            </div>
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🍂</div>
+
+                <div class="service-card">
+                    <i class="fas fa-leaf service-icon"></i>
                     <h3>Leaf Raking</h3>
-                    <p>Seasonal leaf removal to keep your yard clean and prevent lawn damage.</p>
-                    <div class="price-tag">$20 per hour</div>
+                    <p>Seasonal cleanup to maintain your yard's appearance.</p>
+                    <div class="price-tag">$20/hour</div>
                 </div>
-            </div>
-            <div class="card" data-tilt>
-                <div class="card-content">
-                    <div class="card-icon" aria-hidden="true">🗑️</div>
+
+                <div class="service-card">
+                    <i class="fas fa-recycle service-icon"></i>
                     <h3>Trash Take Out</h3>
-                    <p>Regular trash removal service to help maintain cleanliness around your property.</p>
-                    <div class="price-tag">$10 per week</div>
+                    <p>Regular trash removal service for your convenience.</p>
+                    <div class="price-tag">$10/week</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="coming-soon" class="container">
-        <h2 class="section-title">Coming Soon</h2>
-        <div class="coming-soon-card">
-            <div class="coming-soon-icon">🌿</div>
-            <div class="coming-soon-content">
-                <h3>Lawn Mowing</h3>
-                <p>Professional lawn mowing service coming soon! Keep your lawn looking neat and well-maintained.</p>
-                <div class="estimated-price">Est. $25-35 per service</div>
-            </div>
-        </div>
-        <div class="coming-soon-card">
-            <div class="coming-soon-icon">✨</div>
-            <div class="coming-soon-content">
-                <h3>Christmas Lights Setup/Takedown</h3>
-                <p>Holiday decoration services to brighten your season. Professional installation and removal.</p>
-                <div class="estimated-price">Est. $50 per service</div>
-            </div>
-        </div>
-        <div class="coming-soon-card">
-            <div class="coming-soon-icon">🛒</div>
-            <div class="coming-soon-content">
-                <h3>Errand Running</h3>
-                <p>Let us handle your errands while you focus on what matters most. Grocery shopping, package pickup, and more.</p>
-                <div class="estimated-price">Est. $15 per hour</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="fundraiser" class="container">
-        <h2 class="section-title">Fundraiser Progress</h2>
-        <div class="fundraiser">
-            <div class="fundraiser-content">
-                <p>I'm raising money to furnish my new room after our recent move. Every service helps me get closer to my goal!</p>
-                <div class="progress-container" aria-label="Fundraiser progress: $150 raised of $400 goal">
-                    <div class="progress-bar" id="fundraiser-progress"></div>
-                </div>
-                <div class="progress-text">
-                    <div>
-                        <span class="progress-amount">$<span id="current-amount">0</span></span>
-                        <span>Raised so far</span>
-                    </div>
-                    <div>
-                        <span class="progress-amount">$400</span>
-                        <span>Goal</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="container">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-me">
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/002/534/006/small/social-media-chatting-online-blank-profile-picture-head-and-body-icon-people-standing-icon-grey-background-free-vector.jpg" alt="Profile Photo" class="about-me-image" loading="lazy">
-            <div class="about-me-content">
-                <p id="about-text">Hey! I'm Brayden (or BJ), I'm a 14-year-old freshman trying to start a neighborhood business to make some money for my room (we just moved in). Thanks for checking out my site!</p>
-                <p>I'm reliable, hardworking, and eager to help with tasks around your home. My goal is to provide quality services that make your life easier while saving up for things I need.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="container">
-        <h2 class="section-title">Contact Me</h2>
-        
-        <div class="form-intro">
-            <h3>Need a helping hand?</h3>
-            <p>Fill out the form below to request a service, and I'll get back to you as soon as possible!</p>
-        </div>
-        
-        <div class="contact-form">
-            <div class="form-content">
-                <form id="service-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required aria-required="true">
-                        </div>
-                        <div class="form-group">
-                            <label for="contact">Email/Phone</label>
-                            <input type="text" id="contact" name="contact" required aria-required="true">
-                        </div>
-                    </div>
-                    
+    <!-- Enhanced Booking Section -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <h2 class="section-title">Book Your Service</h2>
+            <div class="booking-form">
+                <form id="service-booking-form">
                     <div class="form-group">
-                        <label for="service">Service Needed</label>
-                        <select id="service" name="service" required aria-required="true">
-                            <option value="">Select a service</option>
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address *</label>
+                        <input type="text" id="address" name="address" required placeholder="123 Professional Street, Your Town">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceType">Select Service *</label>
+                        <select id="serviceType" name="serviceType" required>
+                            <option value="">Choose your service</option>
                             <option value="Yard Work">Yard Work ($15/hour)</option>
-                            <option value="Dog Sitting / Walking">Dog Sitting / Walking ($20/week)</option>
-                            <option value="Garbage Can Cleaning">Garbage Can Cleaning ($5/can)</option>
-                            <option value="Plant Watering">Plant Watering ($5/visit)</option>
-                            <option value="Leaf Raking">Leaf Raking ($10/hour)</option>
+                            <option value="Dog Sitting/Walking">Dog Sitting/Walking ($20/visit)</option>
+                            <option value="Garbage Can Cleaning">Garbage Can Cleaning ($15/can)</option>
+                            <option value="Plant Watering">Plant Watering ($7/visit)</option>
+                            <option value="Leaf Raking">Leaf Raking ($20/hour)</option>
                             <option value="Trash Take Out">Trash Take Out ($10/week)</option>
-                            <option value="Other">Other (please specify)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required aria-required="true" placeholder="Please include details about the service you need, preferred dates/times, and any other information that would be helpful."></textarea>
+                        <label for="budget">Budget *</label>
+                        <input type="number" id="budget" name="budget" required min="1" placeholder="Enter your budget">
                     </div>
-                    
-                    <div class="form-submit">
-                        <button type="submit" class="btn" aria-label="Submit service request" id="submit-btn">
-                            Submit Request
-                            <span id="loading-indicator" style="display: none;" class="loading"></span>
-                        </button>
+
+                    <div class="form-group">
+                        <label for="message">Service Details *</label>
+                        <textarea id="message" name="message" required placeholder="Please describe your service needs..."></textarea>
                     </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        Submit Request
+                        <span class="loading" id="loadingSpinner" style="display: none;"></span>
+                    </button>
                 </form>
-                
-                <div class="contact-info">
-                    <div class="contact-method">
-                        <span class="contact-info-icon">📱</span>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p>Coming Soon</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <span class="contact-info-icon">📧</span>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>urfavbraybray13@gmail.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <span class="contact-info-icon">📍</span>
-                        <div class="contact-details">
-                            <h4>Service Area</h4>
-                            <p>Local neighborhood only</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Enhanced Footer -->
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 Bright Hands. All rights reserved.</p>
-                <ul class="footer-links">
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
+            <h3>Professional Service You Can Trust</h3>
+            <p>Bright Hands - Reliable, efficient, and always professional</p>
+            <p>Contact: urfavbraybray13@gmail.com</p>
         </div>
     </footer>
 
-    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top">↑</a>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Theme toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
+        // Clean Particle System
+        function createParticles() {
+            const container = document.getElementById('particle-container');
+            const particleCount = 25;
             
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                body.setAttribute('data-theme', 'dark');
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 10 + 5;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                
+                container.appendChild(particle);
             }
+        }
+
+        // Form Submission
+        document.getElementById('service-booking-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
             
-            themeToggle.addEventListener('click', () => {
-                if (body.getAttribute('data-theme') === 'dark') {
-                    body.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    body.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-            });
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
             
-            // Create animated background for hero section
-            const heroBg = document.getElementById('hero-bg');
+            submitBtn.disabled = true;
+            loadingSpinner.style.display = 'inline-block';
             
-            // Create floating elements
-            for (let i = 0; i < 15; i++) {
-                const span = document.createElement('span');
-                const size = Math.random() * 100 + 50;
-                span.style.width = `${size}px`;
-                span.style.height = `${size}px`;
-                span.style.left = `${Math.random() * 100}%`;
-                span.style.top = `${Math.random() * 100}%`;
-                span.style.animationDelay = `${Math.random() * 5}s`;
-                span.style.animationDuration = `${Math.random() * 10 + 10}s`;
-                heroBg.appendChild(span);
-            }
-            
-            // Scroll animations with staggered effect
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        
-                        // Animate cards with staggered delay
-                        if (entry.target.id === 'services') {
-                            const cards = entry.target.querySelectorAll('.card');
-                            cards.forEach((card, index) => {
-                                setTimeout(() => {
-                                    card.classList.add('visible');
-                                }, 100 * index);
-                            });
-                        }
-                        
-                        // Animate coming soon cards with staggered delay
-                        if (entry.target.id === 'coming-soon') {
-                            const cards = entry.target.querySelectorAll('.coming-soon-card');
-                            cards.forEach((card, index) => {
-                                setTimeout(() => {
-                                    card.classList.add('visible');
-                                }, 200 * index);
-                            });
-                        }
-                        
-                        // Animate fundraiser
-                        if (entry.target.id === 'fundraiser') {
-                            const fundraiser = entry.target.querySelector('.fundraiser');
-                            setTimeout(() => {
-                                fundraiser.classList.add('visible');
-                            }, 100);
-                        }
-                        
-                        // Animate about me
-                        if (entry.target.id === 'about') {
-                            const aboutMe = entry.target.querySelector('.about-me');
-                            setTimeout(() => {
-                                aboutMe.classList.add('visible');
-                                
-                                const paragraphs = aboutMe.querySelectorAll('p');
-                                paragraphs.forEach((p, index) => {
-                                    setTimeout(() => {
-                                        p.classList.add('visible');
-                                    }, 300 * index);
-                                });
-                            }, 100);
-                        }
-                        
-                        // Animate contact form
-                        if (entry.target.id === 'contact') {
-                            const contactForm = entry.target.querySelector('.contact-form');
-                            setTimeout(() => {
-                                contactForm.classList.add('visible');
-                            }, 100);
-                        }
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-            
-            // Fundraiser progress bar animation
-            const progressBar = document.getElementById('fundraiser-progress');
-            const currentAmount = document.getElementById('current-amount');
-            const raisedAmount = 150; // Current amount raised
-            const goalAmount = 400; // Goal amount
-            
-            const progressPercentage = (raisedAmount / goalAmount) * 100;
-            
-            const animateValue = (obj, start, end, duration) => {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    obj.innerHTML = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                address: document.getElementById('address').value,
+                serviceType: document.getElementById('serviceType').value,
+                budget: document.getElementById('budget').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toISOString()
             };
             
-            const fundraiserObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        progressBar.style.width = `${progressPercentage}%`;
-                        animateValue(currentAmount, 0, raisedAmount, 1500);
+            const embed = {
+                title: "New Service Request",
+                description: "Service booking received",
+                color: 0x4CAF50,
+                fields: [
+                    {
+                        name: "Full Name",
+                        value: formData.fullName,
+                        inline: true
+                    },
+                    {
+                        name: "Address",
+                        value: formData.address,
+                        inline: true
+                    },
+                    {
+                        name: "Service",
+                        value: formData.serviceType,
+                        inline: true
+                    },
+                    {
+                        name: "Budget",
+                        value: `$${formData.budget}`,
+                        inline: true
+                    },
+                    {
+                        name: "Details",
+                        value: formData.message
+                    },
+                    {
+                        name: "Submitted",
+                        value: new Date(formData.timestamp).toLocaleString()
                     }
+                ]
+            };
+            
+            const webhookUrl = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_URL';
+            
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        embeds: [embed]
+                    })
                 });
-            }, { threshold: 0.1 });
-            
-            fundraiserObserver.observe(document.getElementById('fundraiser'));
-            
-            // 3D Card Tilt Effect - Only for service cards, not coming soon cards
-            const cards = document.querySelectorAll('.card[data-tilt]');
-            
-            cards.forEach(card => {
-                card.addEventListener('mousemove', handleCardHover);
-                card.addEventListener('mouseleave', resetCardPosition);
-                card.addEventListener('touchmove', handleTouchMove);
-                card.addEventListener('touchend', resetCardPosition);
-            });
-            
-            function handleCardHover(e) {
-                const card = this;
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
                 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-            }
-            
-            function handleTouchMove(e) {
-                if (e.touches.length > 0) {
-                    const touch = e.touches[0];
-                    const card = this;
-                    const rect = card.getBoundingClientRect();
-                    const x = touch.clientX - rect.left;
-                    const y = touch.clientY - rect.top;
-                    
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = (y - centerY) / 20;
-                    const rotateY = (centerX - x) / 20;
-                    
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                    card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
-                }
-            }
-            
-            function resetCardPosition() {
-                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
-            }
-            
-            // Mobile Navigation
-            const navToggle = document.querySelector('.nav-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                const expanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-                navToggle.setAttribute('aria-expanded', !expanded);
-            });
-            
-            // Close menu when clicking on a link
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    navToggle.setAttribute('aria-expanded', 'false');
-                });
-            });
-            
-            // Back to top button
-            const backToTopButton = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopButton.classList.add('visible');
+                if (response.ok) {
+                    const form = document.getElementById('service-booking-form');
+                    form.innerHTML = `
+                        <div class="success-message">
+                            <div class="success-icon">\u2705</div>
+                            <h3>Request Submitted Successfully!</h3>
+                            <p>We'll contact you soon to discuss your service needs.</p>
+                            <button class="submit-btn" onclick="location.reload()">Submit Another Request</button>
+                        </div>
+                    `;
                 } else {
-                    backToTopButton.classList.remove('visible');
+                    throw new Error('Failed to submit');
                 }
-            });
-            
-            backToTopButton.addEventListener('click', (e) => {
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Please email us directly at urfavbraybray13@gmail.com');
+                
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+            }
+        });
+
+        // Initialize clean particles
+        createParticles();
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                window.scrollTo({
-                    top: 0,
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
-            
-            // Accessibility Controls
-            const contrastToggle = document.getElementById('contrast-toggle');
-            const textSizeToggle = document.getElementById('text-size-toggle');
-            
-            contrastToggle.addEventListener('click', () => {
-                document.body.classList.toggle('high-contrast');
-                const isHighContrast = document.body.classList.contains('high-contrast');
-                localStorage.setItem('high-contrast', isHighContrast);
-                contrastToggle.setAttribute('aria-pressed', isHighContrast);
-            });
-            
-            textSizeToggle.addEventListener('click', () => {
-                document.body.classList.toggle('large-text');
-                const isLargeText = document.body.classList.contains('large-text');
-                localStorage.setItem('large-text', isLargeText);
-                textSizeToggle.setAttribute('aria-pressed', isLargeText);
-            });
-            
-            // Load saved accessibility preferences
-            if (localStorage.getItem('high-contrast') === 'true') {
-                document.body.classList.add('high-contrast');
-                contrastToggle.setAttribute('aria-pressed', 'true');
-            } else {
-                contrastToggle.setAttribute('aria-pressed', 'false');
-            }
-            
-            if (localStorage.getItem('large-text') === 'true') {
-                document.body.classList.add('large-text');
-                textSizeToggle.setAttribute('aria-pressed', 'true');
-            } else {
-                textSizeToggle.setAttribute('aria-pressed', 'false');
-            }
-            
-            // Form submission with IP API integration
-            const form = document.getElementById('service-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const loadingIndicator = document.getElementById('loading-indicator');
-            
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Show loading indicator
-                submitBtn.disabled = true;
-                loadingIndicator.style.display = 'inline-block';
-                
-                const formData = {
-                    name: document.getElementById('name').value,
-                    contact: document.getElementById('contact').value,
-                    service: document.getElementById('service').value,
-                    message: document.getElementById('message').value,
-                    timestamp: new Date().toISOString(),
-                    userAgent: navigator.userAgent,
-                    referrer: document.referrer
-                };
-                
-                try {
-                    // Get detailed IP information using ip-api.com
-                    const ipResponse = await fetch('http://ip-api.com/json/?fields=status,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query');
-                    const ipData = await ipResponse.json();
-                    
-                    if (ipData.status !== 'success') {
-                        throw new Error('Failed to get IP information');
-                    }
-                    
-                    // Add IP data to form data
-                    formData.ipDetails = ipData;
-                    
-                    // Send to Discord webhook
-                    const webhookUrl = 'https://discord.com/api/webhooks/1406758914346844321/wpayyuHq_4rzWVBZUcss8gHbvXER_oI4I3HsHRERtw0ifLYrZwVrlgonAhcRR3ZQyxcv';
-                    
-                    const webhookData = {
-                        content: "New Service Request!",
-                        embeds: [{
-                            title: "Service Request Details",
-                            color: 5814783, // Light blue color
-                            fields: [
-                                {
-                                    name: "Name",
-                                    value: formData.name,
-                                    inline: true
-                                },
-                                {
-                                    name: "Contact",
-                                    value: formData.contact,
-                                    inline: true
-                                },
-                                {
-                                    name: "Service",
-                                    value: formData.service,
-                                    inline: true
-                                },
-                                {
-                                    name: "Message",
-                                    value: formData.message
-                                },
-                                {
-                                    name: "IP Address",
-                                    value: ipData.query,
-                                    inline: true
-                                },
-                                {
-                                    name: "Location",
-                                    value: `${ipData.city}, ${ipData.regionName}, ${ipData.country}`,
-                                    inline: true
-                                },
-                                {
-                                    name: "ISP",
-                                    value: ipData.isp,
-                                    inline: true
-                                },
-                                {
-                                    name: "User Agent",
-                                    value: formData.userAgent
-                                },
-                                {
-                                    name: "Referrer",
-                                    value: formData.referrer || "Direct"
-                                }
-                            ],
-                            timestamp: formData.timestamp
-                        }]
-                    };
-                    
-                    const response = await fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(webhookData)
-                    });
-                    
-                    if (response.ok) {
-                        // Show success message
-                        const formContent = document.querySelector('.form-content');
-                        formContent.innerHTML = `
-                            <div class="success-message">
-                                <div class="success-icon">✅</div>
-                                <h3>Thank you!</h3>
-                                <p>Your service request has been submitted. I will get back to you soon!</p>
-                                <button class="btn" style="margin-top: 20px;" onclick="location.reload()">Send Another Request</button>
-                            </div>
-                        `;
-                    } else {
-                        throw new Error('Failed to submit form');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    
-                    // Try alternative method if ip-api fails
-                    try {
-                        const backupIpResponse = await fetch('https://api.ipify.org?format=json');
-                        const backupIpData = await backupIpResponse.json();
-                        formData.ip = backupIpData.ip;
-                        
-                        // Send to Discord webhook with limited IP info
-                        const webhookUrl = 'https://discord.com/api/webhooks/1406758914346844321/wpayyuHq_4rzWVBZUcss8gHbvXER_oI4I3HsHRERtw0ifLYrZwVrlgonAhcRR3ZQyxcv';
-                        
-                        const webhookData = {
-                            content: "New Service Request!",
-                            embeds: [{
-                                title: "Service Request Details",
-                                color: 5814783, // Light blue color
-                                fields: [
-                                    {
-                                        name: "Name",
-                                        value: formData.name,
-                                        inline: true
-                                    },
-                                    {
-                                        name: "Contact",
-                                        value: formData.contact,
-                                        inline: true
-                                    },
-                                    {
-                                        name: "Service",
-                                        value: formData.service,
-                                        inline: true
-                                    },
-                                    {
-                                        name: "Message",
-                                        value: formData.message
-                                    },
-                                    {
-                                        name: "IP Address",
-                                        value: formData.ip || "Not available",
-                                        inline: true
-                                    },
-                                    {
-                                        name: "User Agent",
-                                        value: formData.userAgent
-                                    },
-                                    {
-                                        name: "Referrer",
-                                        value: formData.referrer || "Direct"
-                                    }
-                                ],
-                                timestamp: formData.timestamp
-                            }]
-                        };
-                        
-                        const response = await fetch(webhookUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(webhookData)
-                        });
-                        
-                        if (response.ok) {
-                            // Show success message
-                            const formContent = document.querySelector('.form-content');
-                            formContent.innerHTML = `
-                                <div class="success-message">
-                                    <div class="success-icon">✅</div>
-                                    <h3>Thank you!</h3>
-                                    <p>Your service request has been submitted. I will get back to you soon!</p>
-                                    <button class="btn" style="margin-top: 20px;" onclick="location.reload()">Send Another Request</button>
-                                </div>
-                            `;
-                        } else {
-                            throw new Error('Failed to submit form');
-                        }
-                    } catch (backupError) {
-                        console.error('Backup error:', backupError);
-                        alert('There was an error submitting your request. Please try again or contact me directly at urfavbraybray13@gmail.com');
-                        
-                        // Reset button state
-                        submitBtn.disabled = false;
-                        loadingIndicator.style.display = 'none';
-                    }
-                }
             });
         });
     </script>
