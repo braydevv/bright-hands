@@ -1,30 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bright Hands - Clean & Professional Services</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bright Hands - Professional Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-green: #4CAF50;
-            --light-green: #8BC34A;
-            --mint-green: #A5D6A7;
-            --soft-green: #E8F5E8;
-            --sky-blue: #87CEEB;
-            --light-blue: #ADD8E6;
-            --white: #FFFFFF;
-            --off-white: #F8FFF8;
-            --text-dark: #2E7D32;
-            --text-light: #66BB6A;
-            --shadow-light: rgba(76, 175, 80, 0.1);
-            --shadow-medium: rgba(76, 175, 80, 0.2);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -33,68 +14,131 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            background: linear-gradient(135deg, var(--soft-green) 0%, var(--light-blue) 50%, var(--white) 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 10s ease infinite;
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-weight: 700;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 25%, #ffffff 50%, #dcfce7 75%, #d1fae5 100%);
+            position: relative;
             overflow-x: hidden;
-            font-size: 16px;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Clean Particle System */
-        .particle-container {
+        .bg-overlay-1 {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(34, 197, 94, 0.3) 0%, transparent 33%, rgba(16, 185, 129, 0.2) 66%, rgba(5, 150, 105, 0.4) 100%);
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
+        }
+
+        .bg-overlay-2 {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 70%, rgba(5, 150, 105, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #snow-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 10;
             overflow: hidden;
         }
 
-        .particle {
+        .snow-particle {
             position: absolute;
-            background: var(--light-blue);
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(240,253,244,0.7) 50%, rgba(255,255,255,0.5) 100%);
             border-radius: 50%;
-            opacity: 0.4;
-            animation: floatSideways 20s infinite linear;
+            opacity: 0.8;
+            animation: snowFall linear infinite;
+            box-shadow: 0 0 6px rgba(255,255,255,0.8);
         }
 
-        @keyframes floatSideways {
+        @keyframes snowFall {
             0% {
-                transform: translateX(-100px) translateY(0px) scale(0);
+                transform: translateY(-20px) translateX(0px);
                 opacity: 0;
             }
-            10% {
-                opacity: 0.4;
-                transform: translateX(-80px) translateY(-20px) scale(1);
+            5% {
+                opacity: 0.8;
             }
-            90% {
-                opacity: 0.4;
-                transform: translateX(calc(100vw + 80px)) translateY(-40px) scale(1);
+            50% {
+                transform: translateY(50vh) translateX(10px);
+                opacity: 0.9;
+            }
+            95% {
+                opacity: 0.6;
             }
             100% {
-                transform: translateX(calc(100vw + 100px)) translateY(-60px) scale(0);
+                transform: translateY(calc(100vh + 20px)) translateX(-5px);
                 opacity: 0;
             }
         }
 
-        /* Clean Hero Section */
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0,-30px,0);
+            }
+            70% {
+                transform: translate3d(0,-15px,0);
+            }
+            90% {
+                transform: translate3d(0,-4px,0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .animate-fade-in {
+            animation: fade-in 1s ease-out;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .section {
+            position: relative;
+            z-index: 20;
+        }
+
         .hero {
             min-height: 100vh;
             display: flex;
@@ -102,555 +146,636 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: 40px 20px;
+            padding: 0 1.5rem;
         }
 
-        .hero-content h1 {
+        .hero h1 {
             font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--primary-green);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: bounce 2s ease-in-out infinite;
+            font-weight: 900;
+            color: #16a34a;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero-content p {
-            font-size: 1.6rem;
-            margin-bottom: 30px;
-            color: var(--text-dark);
-            opacity: 0.9;
+        .hero p {
+            font-size: 1.5rem;
+            color: #166534;
+            margin-bottom: 2rem;
         }
 
         .btn-primary {
             display: inline-block;
-            padding: 20px 50px;
-            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
-            color: var(--white);
-            border: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            cursor: pointer;
+            background-color: #16a34a;
+            color: white;
+            padding: 1rem 3rem;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            font-weight: 900;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+            border: 2px solid #15803d;
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        /* Clean Services Section */
-        .services {
-            padding: 100px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 60px;
-            color: var(--primary-green);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .service-card {
-            background: var(--white);
-            border-radius: 25px;
-            padding: 50px 40px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            border: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-            border-color: var(--sky-blue);
-        }
-
-        .service-icon {
-            font-size: 4rem;
-            margin-bottom: 25px;
-            color: var(--primary-green);
-            transition: all 0.4s ease;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.3);
-            color: var(--sky-blue);
-        }
-
-        .service-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--text-dark);
-            font-weight: 700;
-        }
-
-        .service-card p {
-            color: var(--text-light);
-            margin-bottom: 25px;
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-
-        .price-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
-            color: var(--white);
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover .price-tag {
+            background-color: #15803d;
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.25), 0 10px 10px -5px rgb(0 0 0 / 0.04);
         }
 
-        /* Enhanced Booking Section */
-        .booking-section {
-            padding: 100px 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        .booking-form {
-            max-width: 700px;
+        .container {
+            max-width: 80rem;
             margin: 0 auto;
-            background: var(--white);
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 0 1.5rem;
+        }
+
+        .booking-section {
+            padding: 5rem 1.5rem;
+        }
+
+        .booking-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            color: #16a34a;
+            margin-bottom: 3rem;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+            border: 4px solid #bbf7d0;
+            transition: all 0.5s ease;
+        }
+
+        .form-container:hover {
+            border-color: #4ade80;
+            transform: scale(1.05);
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .form-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
         }
 
         .form-group {
-            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 1.2rem;
+        .form-label {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #166534;
         }
 
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 18px;
-            border: 3px solid var(--mint-green);
-            border-radius: 15px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--sky-blue);
-            box-shadow: 0 0 0 4px rgba(135, 206, 235, 0.2);
-            transform: scale(1.02);
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
-            color: var(--white);
-            border: none;
-            border-radius: 50px;
-            font-size: 1.4rem;
+            padding: 1rem;
+            border: 3px solid #86efac;
+            border-radius: 0.75rem;
+            font-size: 1.125rem;
             font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #22c55e;
+            transform: scale(1.05);
+        }
+
+        .form-textarea {
+            resize: none;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 9999px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .submit-btn:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        .btn-submit:hover:not(:disabled) {
+            transform: scale(1.1);
+            box-shadow: 0 25px 25px -5px rgb(0 0 0 / 0.25);
         }
 
-        .submit-btn:active {
-            transform: translateY(-1px) scale(1.02);
+        .btn-submit:disabled {
+            opacity: 0.5;
         }
 
-        /* Enhanced Responsive Design */
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-content p {
-                font-size: 1.4rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .booking-form {
-                padding: 40px 30px;
-                margin: 0 20px;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .service-card {
-                padding: 35px 25px;
-            }
+        .spinner {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 3px solid white;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
         }
 
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            
-            .btn-primary {
-                padding: 15px 35px;
-                font-size: 1.2rem;
-            }
-            
-            .booking-form {
-                padding: 30px 20px;
-            }
-        }
-
-        /* Success Message */
         .success-message {
+            background: linear-gradient(to right, #4ade80, #22c55e);
+            color: white;
+            border-radius: 1.5rem;
+            padding: 3rem;
             text-align: center;
-            padding: 50px;
-            background: linear-gradient(135deg, var(--mint-green), var(--sky-blue));
-            border-radius: 25px;
-            color: var(--white);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
         }
 
         .success-icon {
             font-size: 5rem;
-            margin-bottom: 25px;
-            animation: bounce 1s ease;
+            margin-bottom: 1.5rem;
         }
 
-        .loading {
-            display: inline-block;
-            width: 25px;
-            height: 25px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--white);
-            animation: spin 1s ease-in-out infinite;
-            margin-left: 10px;
+        .services-section {
+            padding: 5rem 1.5rem;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Enhanced Footer */
-        .footer {
-            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
-            color: var(--white);
+        .services-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
             text-align: center;
-            padding: 60px 0;
-            margin-top: 100px;
-            position: relative;
-            z-index: 2;
+            color: #16a34a;
+            margin-bottom: 4rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            border: 4px solid #bbf7d0;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover {
+            border-color: #4ade80;
+            transform: scale(1.1);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        .service-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.25);
+        }
+
+        .service-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #166534;
+            margin-bottom: 1rem;
+        }
+
+        .service-desc {
+            color: #15803d;
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+        }
+
+        .service-price {
+            background-color: #16a34a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            font-weight: 900;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-price {
+            background-color: #15803d;
+            transform: scale(1.1);
+        }
+
+        .staff-section {
+            padding: 5rem 1.5rem;
+            background: linear-gradient(135deg, rgba(236, 253, 245, 0.8) 0%, rgba(240, 253, 244, 0.6) 50%, rgba(255, 255, 255, 0.9) 100%);
+            backdrop-filter: blur(4px);
+        }
+
+        .staff-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            color: #16a34a;
+            margin-bottom: 4rem;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            border: 4px solid #bbf7d0;
+            transition: all 0.5s ease;
+        }
+
+        .staff-card:hover {
+            transform: scale(1.1);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        }
+
+        .staff-card.owner {
+            border-color: #4ade80;
+        }
+
+        .staff-card:hover:not(.owner) {
+            border-color: #4ade80;
+        }
+
+        .staff-avatar {
+            width: 6rem;
+            height: 6rem;
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .staff-card:hover .staff-avatar {
+            transform: scale(1.25);
+        }
+
+        .staff-name {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #166534;
+            margin-bottom: 0.5rem;
+        }
+
+        .staff-role {
+            background: linear-gradient(to right, #22c55e, #16a34a);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 1.125rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .staff-desc {
+            color: #15803d;
+            font-size: 1.125rem;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #16a34a 0%, #059669 50%, #15803d 100%);
+            color: white;
+            padding: 4rem 1.5rem;
+            text-align: center;
         }
 
         .footer h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer p {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero p {
+                font-size: 1.25rem;
+            }
+            
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-section h2,
+            .staff-section h2,
+            .booking-section h2 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Clean Particle Container -->
-    <div class="particle-container" id="particle-container"></div>
+    <!-- Background Overlays -->
+    <div class="bg-overlay-1"></div>
+    <div class="bg-overlay-2"></div>
 
-    <!-- Clean Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Bright Hands</h1>
-            <p>Professional yard work, pet care, and home services</p>
-            <a href="#services" class="btn-primary">View Our Services</a>
+    <!-- Snow Particles Container -->
+    <div id="snow-container"></div>
+
+    <!-- Hero Section -->
+    <section class="section hero">
+        <div class="animate-bounce">
+            <h1 class="animate-pulse">Bright Hands</h1>
+            <p class="animate-fade-in">Professional yard work, pet care, and home services</p>
+            <a href="#booking" class="btn-primary">Book Service Now</a>
         </div>
     </section>
 
-    <!-- Clean Services Section -->
-    <section class="services" id="services">
+    <!-- Booking Section -->
+    <section id="booking" class="section booking-section">
         <div class="container">
-            <h2 class="section-title">Our Professional Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-tree service-icon"></i>
-                    <h3>Yard Work</h3>
-                    <p>Complete yard cleanup and maintenance to keep your outdoor space pristine.</p>
-                    <div class="price-tag">$10/hour</div>
-                </div>
+            <h2 class="animate-bounce">Book Your Service</h2>
 
-                <div class="service-card">
-                    <i class="fas fa-dog service-icon"></i>
-                    <h3>Dog Sitting & Walking</h3>
-                    <p>Reliable pet care services when you need them most.</p>
-                    <div class="price-tag">$10/visit</div>
-                </div>
+            <div id="booking-form" class="form-container">
+                <form id="serviceForm" class="form-grid">
+                    <div class="form-grid form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input type="text" name="fullName" required class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Address *</label>
+                            <input type="text" name="address" required placeholder="123 Professional Street, Your Town" class="form-input">
+                        </div>
+                    </div>
 
-                <div class="service-card">
-                    <i class="fas fa-trash service-icon"></i>
-                    <h3>Garbage Can Cleaning</h3>
-                    <p>Professional cleaning to eliminate odors and maintain hygiene.</p>
-                    <div class="price-tag">$15/can</div>
-                </div>
-
-                <div class="service-card">
-                    <i class="fas fa-seedling service-icon"></i>
-                    <h3>Plant Watering</h3>
-                    <p>Keep your plants healthy and thriving with regular care.</p>
-                    <div class="price-tag">$7/visit</div>
-                </div>
-
-                <div class="service-card">
-                    <i class="fas fa-leaf service-icon"></i>
-                    <h3>Leaf Raking</h3>
-                    <p>Seasonal cleanup to maintain your yard's appearance.</p>
-                    <div class="price-tag">$10/hour</div>
-                </div>
-
-                <div class="service-card">
-                    <i class="fas fa-recycle service-icon"></i>
-                    <h3>Trash Take Out</h3>
-                    <p>Regular trash removal service for your convenience.</p>
-                    <div class="price-tag">$5/week</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enhanced Booking Section -->
-    <section class="booking-section" id="booking">
-        <div class="container">
-            <h2 class="section-title">Book Your Service</h2>
-            <div class="booking-form">
-                <form id="service-booking-form">
-                    <div class="form-group">
-                        <label for="fullName">Full Name *</label>
-                        <input type="text" id="fullName" name="fullName" required>
+                    <div class="form-grid form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Select Service *</label>
+                            <select name="serviceType" required class="form-select">
+                                <option value="">Choose your service</option>
+                                <option value="Yard Work">Yard Work ($10/hour)</option>
+                                <option value="Dog Sitting/Walking">Dog Sitting/Walking ($10/visit)</option>
+                                <option value="Garbage Can Cleaning">Garbage Can Cleaning ($15/can)</option>
+                                <option value="Plant Watering">Plant Watering ($7/visit)</option>
+                                <option value="Leaf Raking">Leaf Raking ($10/hour)</option>
+                                <option value="Trash Take Out">Trash Take Out ($5/week)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Choose Staff Member *</label>
+                            <select name="staff" required class="form-select">
+                                <option value="">Select staff member</option>
+                                <option value="Brayden (Owner) | 14yo">Brayden (Owner) | 14yo</option>
+                                <option value="Luke | 12yo">Luke | 12yo</option>
+                                <option value="Brody | 11yo">Brody | 11yo</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="address">Address *</label>
-                        <input type="text" id="address" name="address" required placeholder="123 Professional Street, Your Town">
+                        <label class="form-label">Budget *</label>
+                        <input type="number" name="budget" required min="1" placeholder="Enter your budget" class="form-input">
                     </div>
 
                     <div class="form-group">
-                        <label for="serviceType">Select Service *</label>
-                        <select id="serviceType" name="serviceType" required>
-                            <option value="">Choose your service</option>
-                            <option value="Yard Work">Yard Work ($10/hour)</option>
-                            <option value="Dog Sitting/Walking">Dog Sitting/Walking ($10/visit)</option>
-                            <option value="Garbage Can Cleaning">Garbage Can Cleaning ($15/can)</option>
-                            <option value="Plant Watering">Plant Watering ($7/visit)</option>
-                            <option value="Leaf Raking">Leaf Raking ($10/hour)</option>
-                            <option value="Trash Take Out">Trash Take Out ($5/week)</option>
-                        </select>
+                        <label class="form-label">Service Details *</label>
+                        <textarea name="message" required placeholder="Please describe your service needs..." class="form-textarea"></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="budget">Budget *</label>
-                        <input type="number" id="budget" name="budget" required min="1" placeholder="Enter your budget">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Service Details *</label>
-                        <textarea id="message" name="message" required placeholder="Please describe your service needs..."></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        Submit Request
-                        <span class="loading" id="loadingSpinner" style="display: none;"></span>
+                    <button type="submit" class="btn-submit">
+                        <span id="submit-text">Submit Request</span>
+                        <div id="submit-spinner" class="spinner animate-spin hidden"></div>
                     </button>
                 </form>
             </div>
+
+            <div id="success-message" class="success-message hidden animate-bounce">
+                <div class="success-icon">✅</div>
+                <h3 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 1rem;">Request Submitted Successfully!</h3>
+                <p style="font-size: 1.25rem; margin-bottom: 2rem;">We'll contact you soon to discuss your service needs.</p>
+                <button onclick="location.reload()" style="background: white; color: #16a34a; padding: 1rem 2rem; border-radius: 9999px; font-size: 1.25rem; font-weight: 900; border: none; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    Submit Another Request
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- Enhanced Footer -->
-    <footer class="footer">
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
         <div class="container">
-            <h3>Professional Service You Can Trust</h3>
+            <h2 class="animate-bounce">Our Professional Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🌳</div>
+                    <h3 class="service-title">Yard Work</h3>
+                    <p class="service-desc">Complete yard cleanup and maintenance to keep your outdoor space pristine.</p>
+                    <div class="service-price">$10/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🐕</div>
+                    <h3 class="service-title">Dog Sitting & Walking</h3>
+                    <p class="service-desc">Reliable pet care services when you need them most.</p>
+                    <div class="service-price">$10/visit</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🗑️</div>
+                    <h3 class="service-title">Garbage Can Cleaning</h3>
+                    <p class="service-desc">Professional cleaning to eliminate odors and maintain hygiene.</p>
+                    <div class="service-price">$15/can</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌱</div>
+                    <h3 class="service-title">Plant Watering</h3>
+                    <p class="service-desc">Keep your plants healthy and thriving with regular care.</p>
+                    <div class="service-price">$7/visit</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🍂</div>
+                    <h3 class="service-title">Leaf Raking</h3>
+                    <p class="service-desc">Seasonal cleanup to maintain your yard's appearance.</p>
+                    <div class="service-price">$10/hour</div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">♻️</div>
+                    <h3 class="service-title">Trash Take Out</h3>
+                    <p class="service-desc">Regular trash removal service for your convenience.</p>
+                    <div class="service-price">$5/week</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Section -->
+    <section class="section staff-section">
+        <div class="container">
+            <h2 class="animate-bounce">Our Staff</h2>
+            <div class="staff-grid">
+                <div class="staff-card owner">
+                    <div class="staff-avatar">B</div>
+                    <h3 class="staff-name">Brayden</h3>
+                    <div class="staff-role">Owner | 14yo</div>
+                    <p class="staff-desc">Founder and lead service provider with exceptional attention to detail and customer satisfaction.</p>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-avatar">L</div>
+                    <h3 class="staff-name">Luke</h3>
+                    <div class="staff-role">Staff | 12yo</div>
+                    <p class="staff-desc">Dedicated team member specializing in yard work and pet care services with a friendly approach.</p>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-avatar">B</div>
+                    <h3 class="staff-name">Brody</h3>
+                    <div class="staff-role">Staff | 11yo</div>
+                    <p class="staff-desc">Enthusiastic team member focused on plant care and maintenance services with great energy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section footer">
+        <div class="container">
+            <h3 class="animate-pulse">Professional Service You Can Trust</h3>
             <p>Bright Hands - Reliable, efficient, and always professional</p>
             <p>Contact: urfavbraybray13@gmail.com</p>
         </div>
     </footer>
 
     <script>
-        // Clean Particle System
-        function createParticles() {
-            const container = document.getElementById('particle-container');
-            const particleCount = 25;
-            
+        // Create snow particles
+        function createSnowParticles() {
+            const container = document.getElementById('snow-container');
+            if (!container) return;
+
+            const particleCount = 80;
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 10 + 5;
+                particle.className = 'snow-particle';
+
+                const size = Math.random() * 6 + 3;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
-                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = Math.random() * 4 + 6 + 's';
+
                 container.appendChild(particle);
             }
         }
 
-        // Form Submission
-        document.getElementById('service-booking-form').addEventListener('submit', async function(e) {
+        // Form submission
+        document.getElementById('serviceForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const submitBtn = document.getElementById('submitBtn');
-            const loadingSpinner = document.getElementById('loadingSpinner');
+            const submitBtn = e.target.querySelector('.btn-submit');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
             
+            // Show loading state
             submitBtn.disabled = true;
-            loadingSpinner.style.display = 'inline-block';
-            
-            const formData = {
-                fullName: document.getElementById('fullName').value,
-                address: document.getElementById('address').value,
-                serviceType: document.getElementById('serviceType').value,
-                budget: document.getElementById('budget').value,
-                message: document.getElementById('message').value,
+            submitText.textContent = 'Submitting Request...';
+            submitSpinner.classList.remove('hidden');
+
+            const formData = new FormData(e.target);
+            const data = {
+                fullName: formData.get('fullName'),
+                address: formData.get('address'),
+                serviceType: formData.get('serviceType'),
+                staff: formData.get('staff'),
+                budget: formData.get('budget'),
+                message: formData.get('message'),
                 timestamp: new Date().toISOString()
             };
-            
+
             const embed = {
-                title: "New Service Request",
-                description: "Service booking received",
-                color: 0x4CAF50,
+                title: 'New Service Request',
+                description: 'Service booking received',
+                color: 0x22c55e,
                 fields: [
-                    {
-                        name: "Full Name",
-                        value: formData.fullName,
-                        inline: true
-                    },
-                    {
-                        name: "Address",
-                        value: formData.address,
-                        inline: true
-                    },
-                    {
-                        name: "Service",
-                        value: formData.serviceType,
-                        inline: true
-                    },
-                    {
-                        name: "Budget",
-                        value: `$${formData.budget}`,
-                        inline: true
-                    },
-                    {
-                        name: "Details",
-                        value: formData.message
-                    },
-                    {
-                        name: "Submitted",
-                        value: new Date(formData.timestamp).toLocaleString()
-                    }
+                    { name: 'Full Name', value: data.fullName, inline: true },
+                    { name: 'Address', value: data.address, inline: true },
+                    { name: 'Service', value: data.serviceType, inline: true },
+                    { name: 'Staff Member', value: data.staff, inline: true },
+                    { name: 'Budget', value: `$${data.budget}`, inline: true },
+                    { name: 'Details', value: data.message },
+                    { name: 'Submitted', value: new Date(data.timestamp).toLocaleString() }
                 ]
             };
-            
+
             const webhookUrl = 'https://discord.com/api/webhooks/1416431034593181776/4SBil5qZqkkr9LMAgz1Cs58GHBSgy1DXJfzfDoHBD6lOmmtt7Fc4MkTVKtn4RNvqZzH4';
-            
+
             try {
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        embeds: [embed]
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] })
                 });
-                
+
                 if (response.ok) {
-                    const form = document.getElementById('service-booking-form');
-                    form.innerHTML = `
-                        <div class="success-message">
-                            <div class="success-icon">\u2705</div>
-                            <h3>Request Submitted Successfully!</h3>
-                            <p>We'll contact you soon to discuss your service needs.</p>
-                            <button class="submit-btn" onclick="location.reload()">Submit Another Request</button>
-                        </div>
-                    `;
+                    document.getElementById('booking-form').classList.add('hidden');
+                    document.getElementById('success-message').classList.remove('hidden');
                 } else {
                     throw new Error('Failed to submit');
                 }
             } catch (error) {
                 console.error('Error:', error);
                 alert('Please email us directly at urfavbraybray13@gmail.com');
-                
+            } finally {
                 submitBtn.disabled = false;
-                loadingSpinner.style.display = 'none';
+                submitText.textContent = 'Submit Request';
+                submitSpinner.classList.add('hidden');
             }
         });
 
-        // Initialize clean particles
-        createParticles();
-
-        // Smooth scrolling
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
+
+        // Initialize snow particles when page loads
+        document.addEventListener('DOMContentLoaded', createSnowParticles);
     </script>
 </body>
 </html>
